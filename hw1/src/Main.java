@@ -1,36 +1,51 @@
-import java.io.IOException;
+
+import People.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        FamilyTree familyTree = new FamilyTree();
-        FileHandler fileHandler = new FileHandler();
+    public static void main(String[] args) {
+        Service service = new Service();
+        Human olgaKartaeva = new Human("Olga", "Serduk", LocalDate.of(1965, 3, 13), Gender.Female);
+        Human sergeyKartaev = new Human("Sergey", "Kartaev", LocalDate.of(1964, 6, 15), Gender.Male);
+
+        Human nikolayKartaev = new Human("Nikolay", "Kartaev", LocalDate.of(1987, 1, 3), olgaKartaeva, sergeyKartaev,
+                Gender.Male);
+        Human anastasiaKartaeva = new Human("Anastasia", "Kartaeva", LocalDate.of(1986, 8, 26), Gender.Female);
+        Human platonKartaev = new Human("Platon", "Kartaev", LocalDate.of(2022, 1, 30), Gender.Male);
+        Human ivanKartaev = new Human("Ivan", "Kartaev", LocalDate.of(1990, 12, 14), Gender.Male);
+        Human vladMakarov = new Human("Vlad", "Makarov", LocalDate.of(2004, 06, 13), Gender.Male);
+
+        nikolayKartaev.addChildF(platonKartaev);
+        anastasiaKartaeva.addChildM(platonKartaev);
+
+        olgaKartaeva.addChildM(nikolayKartaev);
+        sergeyKartaev.addChildF(nikolayKartaev);
+
+        olgaKartaeva.addChildM(ivanKartaev);
+        sergeyKartaev.addChildF(ivanKartaev);
+
+        anastasiaKartaeva.addChildM(vladMakarov);
 
 
+        service.addHuman("Ivan", "Kartaev", LocalDate.of(1990, 12, 14), olgaKartaeva, sergeyKartaev,
+                Gender.Male);
+        service.addHuman("Platon", "Kartaev", LocalDate.of(2022, 1, 30), anastasiaKartaeva, nikolayKartaev,
+                Gender.Male);
+        service.addHuman("Nikolay", "Kartaev", LocalDate.of(1987, 1, 3), olgaKartaeva, sergeyKartaev,
+                Gender.Male);
 
 
-        Human human1 = new Human("Ivan", Gender.male, LocalDate.of(2000, 12, 17), LocalDate.of(2021, 12, 15));
-        Human human2 = new Human("Sergey", Gender.male, LocalDate.of(2001, 12, 17));
-        Human human3 = new Human("Misha", Gender.male, LocalDate.of(1950, 12, 17), LocalDate.of(2000, 12, 14));
-        Human human4 = new Human("Anna", Gender.female, LocalDate.of(1985, 12, 17));
-        Human human5 = new Human("Anton", Gender.male, LocalDate.of(2002, 12, 17));
+        System.out.println(service.getInformation());
+
+        service.sortByAge();
+        System.out.println(service.getInformation());
+
+        service.sortByBirthdate();
+        System.out.println(service.getInformation());
 
 
-
-
-        human1.addChildren(human3);
-        human3.addParent(human1);
-        human5.addChildren(human2);
-        human2.addParent(human5);
-        human3.addChildren(human5);
-        human5.addParent(human3);
-
-        familyTree.createTree(human1);
-        fileHandler.saveFile(familyTree);
-        System.out.println(familyTree.getTree());
-
-        familyTree = (FamilyTree) fileHandler.readFile();
-        System.out.println(familyTree.getTree());
     }
 }
