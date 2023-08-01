@@ -1,51 +1,30 @@
 
-import People.*;
+import family_tree.FamilyTree;
+import human.Gender;
+import human.Human;
+import writter.FileHandler;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Main {
-
     public static void main(String[] args) {
-        Service service = new Service();
-        Human olgaKartaeva = new Human("Olga", "Serduk", LocalDate.of(1965, 3, 13), Gender.Female);
-        Human sergeyKartaev = new Human("Sergey", "Kartaev", LocalDate.of(1964, 6, 15), Gender.Male);
+        String filePath = "homeWork/src/file/txt.out";
+        FileHandler fileHandler = new FileHandler();
+        FamilyTree familyTree = new FamilyTree(100);
 
-        Human nikolayKartaev = new Human("Nikolay", "Kartaev", LocalDate.of(1987, 1, 3), olgaKartaeva, sergeyKartaev,
-                Gender.Male);
-        Human anastasiaKartaeva = new Human("Anastasia", "Kartaeva", LocalDate.of(1986, 8, 26), Gender.Female);
-        Human platonKartaev = new Human("Platon", "Kartaev", LocalDate.of(2022, 1, 30), Gender.Male);
-        Human ivanKartaev = new Human("Ivan", "Kartaev", LocalDate.of(1990, 12, 14), Gender.Male);
-        Human vladMakarov = new Human("Vlad", "Makarov", LocalDate.of(2004, 06, 13), Gender.Male);
-
-        nikolayKartaev.addChildF(platonKartaev);
-        anastasiaKartaeva.addChildM(platonKartaev);
-
-        olgaKartaeva.addChildM(nikolayKartaev);
-        sergeyKartaev.addChildF(nikolayKartaev);
-
-        olgaKartaeva.addChildM(ivanKartaev);
-        sergeyKartaev.addChildF(ivanKartaev);
-
-        anastasiaKartaeva.addChildM(vladMakarov);
-
-
-        service.addHuman("Ivan", "Kartaev", LocalDate.of(1990, 12, 14), olgaKartaeva, sergeyKartaev,
-                Gender.Male);
-        service.addHuman("Platon", "Kartaev", LocalDate.of(2022, 1, 30), anastasiaKartaeva, nikolayKartaev,
-                Gender.Male);
-        service.addHuman("Nikolay", "Kartaev", LocalDate.of(1987, 1, 3), olgaKartaeva, sergeyKartaev,
-                Gender.Male);
-
-
-        System.out.println(service.getInformation());
-
-        service.sortByAge();
-        System.out.println(service.getInformation());
-
-        service.sortByBirthdate();
-        System.out.println(service.getInformation());
-
-
+        Human ivan = new Human("Иван", Gender.Male, LocalDate.of(1900,6,23), LocalDate.of(1985,8,12));
+        familyTree.addHuman(ivan);
+        Human varvara = new Human("Варвара" , Gender.Female, LocalDate.of(1902,07,23), LocalDate.of(1990,8,12));
+        familyTree.addHuman(varvara);
+        familyTree.setWedding(ivan.getId(),varvara.getId());
+        Human chritina = new Human("Кристина", Gender.Female, LocalDate.of(1988,7,5),LocalDate.now(), ivan, varvara);
+        Human semyon = new Human("Семен", Gender.Male, LocalDate.of(1991,1,25),LocalDate.now(), ivan, varvara);
+        familyTree.addHuman(chritina);
+        familyTree.addHuman(semyon);
+        System.out.println(familyTree);
+        familyTree.sortByName();
+        System.out.println(familyTree);
+        familyTree.sortByDateOfBirth();
+        System.out.println(familyTree);
     }
 }
