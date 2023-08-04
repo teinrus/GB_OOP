@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree<E extends FamilyItem> implements Iterable<E>{
+public class FamilyTree<E extends FamilyItem<E>> implements Serializable,Iterable<E>{
     private int id;
     private int humanId;
     private List<E> humanList;
@@ -27,6 +27,11 @@ public class FamilyTree<E extends FamilyItem> implements Iterable<E>{
             return true;
         }
         return false;
+    }
+    private void addToChildren(E human){
+        for (E child: human.getChildren()){
+            child.addParent((E) human);
+        }
     }
 
 
