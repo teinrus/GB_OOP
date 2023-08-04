@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package human;
 
 import java.util.Iterator;
@@ -7,17 +12,15 @@ public class HumanIterator<E> implements Iterator<E> {
     private int index;
     private List<E> humanList;
 
-    public HumanIterator(List<E> humanList){
+    public HumanIterator(List<E> humanList) {
         this.humanList = humanList;
     }
 
-    @Override
     public boolean hasNext() {
-        return humanList.size() > index;
+        return this.humanList.size() > this.index;
     }
 
-    @Override
     public E next() {
-        return humanList.get(index++);
+        return this.humanList.get(this.index++);
     }
 }

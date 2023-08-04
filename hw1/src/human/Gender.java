@@ -1,5 +1,10 @@
 package human;
 
 public enum Gender {
-    Male, Female
+    Male,
+    Female;
+
+    private Gender() {
+    }
 }
+
